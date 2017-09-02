@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import DropdownDir from './FormDir.js';
 import Autocomplete from 'react-autocomplete';
 import './App.css';

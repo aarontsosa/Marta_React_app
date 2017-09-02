@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Countdown = ({time, localTime}) => {
     if(time.length === 1){
       return <div></div>
     }
     let localTimeString = localTime.toLocaleTimeString()
-    let localHour = parseInt(localTimeString.slice(0, 2))
-    let localMin = parseInt(localTimeString.slice(3, 5))
-    let localSec = parseInt(localTimeString.slice(6, 8))
+    let localHour = parseInt(localTimeString.slice(0, 2), 10)
+    let localMin = parseInt(localTimeString.slice(3, 5), 10)
+    let localSec = parseInt(localTimeString.slice(6, 8), 10)
     let martaTime = time
-    let martaHour = parseInt(martaTime.slice(0, 2))
-    let martaMin = parseInt(martaTime.slice(3, 5))
+    let martaHour = parseInt(martaTime.slice(0, 2), 10)
+    let martaMin = parseInt(martaTime.slice(3, 5), 10)
     let martaSec = 0
     let secDif = martaSec-localSec
     let minDif = martaMin-localMin

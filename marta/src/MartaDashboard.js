@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Countdown from './Countdown.js';
-import Time from './Time.js';
-import Destination from './Destination.js';
 import Card from './Card.js';
 
 
@@ -38,10 +35,11 @@ class MartaDashboard extends Component {
           if(data.DIRECTION === this.props.direction && data.STATION === this.props.station){
             new_data.push(data)
           }
+          return data
         })
         // cb(new_data);
         if(new_data.length > 0){
-          if(new_data.length >= this.state.martaData.length || new_data[0].DIRECTION != this.state.martaData[0].DIRECTION){
+          if(new_data.length >= this.state.martaData.length || new_data[0].DIRECTION !== this.state.martaData[0].DIRECTION){
           this.setState({
           martaData: new_data,
           emptyArry: 0

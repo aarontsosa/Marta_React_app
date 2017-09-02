@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Time = ({time}) => {
     let hourMin = time.slice(0, 5)
