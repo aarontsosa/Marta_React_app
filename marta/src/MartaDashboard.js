@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import Countdown from './Countdown.js';
+import Time from './Time.js';
+import Destination from './Destination.js';
+import Card from './Card.js';
 
 
-const getMartaData = (cb) => {
-    fetch('http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1', {
+
+const getMartaData = () => {
+    return fetch('http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1', {
       method: 'get',
     }).then(function(response) {
       return response.json()
-    }).then(function(jsonData) {
-      // console.log(jsonData);
-      cb(jsonData);
     }).catch(function(err) {
       // Error :(
     });
@@ -20,18 +22,47 @@ class MartaDashboard extends Component {
     super(props);
     this.state = {
       martaData: [],
-      trainData:{}
+      localTime: new Date(),
+      emptyArry: 0
     };
   }
 
   componentWillMount() {
+
     this.martaDataGrabber = setInterval( () => {
-      getMartaData((jsonData) => {
-        this.setState({
-          martaData: jsonData,
-          trainData: {}
+      getMartaData().then((jsonData) => {
+        // console.log(jsonData);\
+        let new_data = []
+        let emptySignal = [{DESTINATION: "No Trains Avaliable at this moment", NEXT_ARR:" "}]
+        jsonData.map((data)=>{
+          if(data.DIRECTION === this.props.direction && data.STATION === this.props.station){
+            new_data.push(data)
+          }
+        })
+        // cb(new_data);
+        if(new_data.length > 0){
+          if(new_data.length >= this.state.martaData.length || new_data[0].DIRECTION != this.state.martaData[0].DIRECTION){
+          this.setState({
+          martaData: new_data,
+          emptyArry: 0
         });
-      });
+        }
+        
+      } else if (new_data.length === 0){
+        let size = this.state.emptyArry + 1
+        this.setState({
+          emptyArry: size
+        })
+        if(this.state.emptyArry >= 2){
+          this.setState({
+            martaData: emptySignal
+          })
+        }
+      }
+      })
+      this.setState({
+        localTime: new Date()
+      })
     }, 1000);
   }
 
@@ -40,65 +71,27 @@ class MartaDashboard extends Component {
   }
 
   render() {
-
     let martaOutput = this.state.martaData.map((datum) => {
       // debugger;
-      if(datum.DESTINATION === "Airport" && datum.STATION === "MIDTOWN STATION"){
-        let localTime = new Date().toLocaleTimeString()
-        let localHour = parseInt(localTime.slice(0, 2))
-        let localMin = parseInt(localTime.slice(3, 5))
-        let localSec = parseInt(localTime.slice(6, 8))
-        let martaTime = datum.NEXT_ARR
-        let martaHour = parseInt(martaTime.slice(0, 2))
-        let martaMin = parseInt(martaTime.slice(3, 5))
-        let martaSec = parseInt(martaTime.slice(6, 8))
-        let secDif = (martaSec-localSec)
-        let minDif = martaMin-localMin
-          if(secDif < 0){
-            secDif += 60
-          }
-          if(minDif < 0){
-            minDif += 60
-          }
-        let countdown = (minDif) + ":" + (secDif)
-        console.log(localTime)
-        console.log(datum)
         return (
-                    <tbody>
-                      <tr>
-                        <th scope="row">{datum.STATION}</th>
-                        <td>{datum.TRAIN_ID}</td>
-                        <td>{datum.NEXT_ARR}</td>
-                        <td>{countdown}</td>
-                      </tr>
-                    </tbody>)
-      } 
-      return
+          <Card station={datum.DESTINATION} time={datum.NEXT_ARR} localTime={this.state.localTime}/>
+        )
 
       
     });
     // console.log(martaOutput);
 
+    
+
     return (
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>Station</th>
-              <th>Train ID</th>
-              <th>Waiting Time</th>
-              <th>Countdown</th>
-            </tr>
-          </thead>
+      <div className="row">
+        <div className="col-sm-6 col-md-12 col-lg-12 col-xs-6">
           {martaOutput}
-        </table>
+        </div>
+      </div>
     )
   }
 
-  // _updateMartaData = (jsonData) => {
-  //     this.setState({
-  //       martaData: jsonData
-  //     });
-  // }
 }
 
 export default MartaDashboard;
