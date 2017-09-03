@@ -51,7 +51,7 @@ class MartaDashboard extends Component {
         this.setState({
           emptyArry: size
         })
-        if(this.state.emptyArry >= 2){
+        if(this.state.emptyArry >= 3){
           this.setState({
             martaData: emptySignal
           })

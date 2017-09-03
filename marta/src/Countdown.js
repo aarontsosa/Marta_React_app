@@ -5,6 +5,9 @@ const Countdown = ({time, localTime}) => {
       return <div></div>
     }
     let localTimeString = localTime.toLocaleTimeString()
+    if(localTimeString.length === 10){
+      localTimeString = "0" + localTimeString
+    }
     let localHour = parseInt(localTimeString.slice(0, 2), 10)
     let localMin = parseInt(localTimeString.slice(3, 5), 10)
     let localSec = parseInt(localTimeString.slice(6, 8), 10)
