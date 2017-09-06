@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import Card from './Card.js';
+import axios from 'axios';
 
-
+const martaURL = 'http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1'
 
 const getMartaData = () => {
-    return fetch('http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1', {
-      method: 'get',
-    }).then(function(response) {
-      return response.json()
+  return axios.get(martaURL)
+      .then(function(response) {
+      
+      return response.data
     }).catch(function(err) {
       // Error :(
     });
+      
+    
 }
 
 class MartaDashboard extends Component {
