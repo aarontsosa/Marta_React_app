@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Card from './Card.js';
 import axios from 'axios';
 
-const martaURL = 'http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1'
+const martaURL = 'http://localhost:7000/http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1'
 
 const getMartaData = () => {
   return axios.get(martaURL)
@@ -12,7 +12,7 @@ const getMartaData = () => {
     }).catch(function(err) {
       // Error :(
     });
-      
+    
     
 }
 
@@ -35,7 +35,7 @@ class MartaDashboard extends Component {
         let new_data = []
         let emptySignal = [{DESTINATION: "No Trains Avaliable at this moment", NEXT_ARR:" "}]
         jsonData.map((data)=>{
-          if(data.DIRECTION === this.props.direction && data.STATION === this.props.station){
+          if(data.DIRECTION === this.props.match.match.params.direction[0] && data.STATION === (((this.props.match.match.params.station).toUpperCase())+ " STATION")){
             new_data.push(data)
           }
           return data
@@ -75,18 +75,18 @@ class MartaDashboard extends Component {
     let martaOutput = this.state.martaData.map((datum) => {
       // debugger;
         return (
-          <Card station={datum.DESTINATION} time={datum.NEXT_ARR} localTime={this.state.localTime}/>
+          <div>
+            <Card station={datum.DESTINATION} time={datum.NEXT_ARR} localTime={this.state.localTime}/>
+            <br />
+          </div>
         )
 
       
     });
-    // console.log(martaOutput);
-
-    
-
+    console.log(((this.props.match.match.params.station).toUpperCase())+ " STATION")
     return (
       <div className="row">
-        <div className="col-sm-6 col-md-12 col-lg-12 col-xs-6">
+        <div className="col-sm-12 col-md-12 col-lg-12 col-xs-12">
           {martaOutput}
         </div>
       </div>
