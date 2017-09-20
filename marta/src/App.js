@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import Navigation from './Navigation.js';
 import MartaDashboard from './MartaDashboard.js';
+import RoutesResults from './RoutesResults.js';
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class App extends Component {
           <div>
             <Switch>
               <Route exact path="/" component={({match}) => (<Navigation navarray={martaDirection} match={match}/>)} />
+              <Route exact path="/routes" component={({match}) => (<RoutesResults  match={match} />)} />
               <Route path={`/:direction/:station`} component={(match) => (<MartaDashboard match={match}/>)} />
               <Route path="/:direction" component={({match}) => (<Navigation NSarray={martaNorthSouth} EWarray={martaEastWest} match={match}/>)} />
             </Switch>
