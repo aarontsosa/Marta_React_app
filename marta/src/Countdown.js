@@ -21,7 +21,7 @@ const Countdown = ({time, localTime}) => {
       if(hourDif > 0){
         minDif = (martaMin + (60 * hourDif)) - localMin
       }
-      if(secDif <= 0 && minDif <= 0){
+      if (secDif <= 0 && minDif <= 0) {
         return <h1 className="card-title">Boarding Now</h1>
       } else if(secDif < 0){
         secDif += 60

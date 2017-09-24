@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     let martaDirection = ["North", "South", "East", "West"]
     let martaNorthSouth = ["North Springs", "Sandy Springs", "Dunwoody", "Buckhead", "Doraville", "Chamblee", "BrookHaven", "Lenox", "Lindbergh Center", "Arts Center", "Midtown", "North Avenue", "Civic Center", "Peachtree Center", "Five Points", "Garnett", "West End", "Oakland City", "Lakewood", "East Point", "College Park", "Airport"]
-    let martaEastWest = ["H.E.Holmes", "West Lake", "Bankhead", "Ashby", "Vine City", "Dome/GWCC/Philips/CNN", "Five Points", "Georgia State", "King Memorial", "Inman Park", "Edgewood Candler Park", "East Lake", "Decatur", "Avondale", "Kensington", "Indian Creek"]
+    let martaEastWest = ["Hamilton E Holmes", "West Lake", "Bankhead", "Ashby", "Vine City", "Omni Dome", "Five Points", "Georgia State", "King Memorial", "Inman Park", "Edgewood Candler Park", "East Lake", "Decatur", "Avondale", "Kensington", "Indian Creek"]
     return (
       <div className="App">
         <br/>

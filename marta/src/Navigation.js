@@ -20,8 +20,6 @@ const Navigation = ({match, navarray, NSarray, EWarray}) => {
             )
         })
     }
-    
-    console.log(match.params.direction)
     return (
         <div>
             <table className="table">
