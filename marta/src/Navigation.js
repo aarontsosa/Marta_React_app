@@ -31,4 +31,6 @@ const Navigation = ({match, navarray, NSarray, EWarray}) => {
     );
 };
 
+
+
 export default Navigation;

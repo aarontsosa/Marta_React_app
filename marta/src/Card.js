@@ -7,10 +7,10 @@ import Destination from './Destination.js';
 const Card = (props) => {
     return (
         <div className="card">
-                <div className="card-block">
+                <div className="card-block card-contents">
                     <Destination destination={props.station} />
                     <Time time={props.time}/>
-                    <Countdown time={props.time} localTime={props.localTime} />
+                    <Countdown time={props.time} localTime={props.localTime} reload={props.reload}/>
                 </div>
             </div>
     );

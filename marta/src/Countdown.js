@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Countdown = ({time, localTime}) => {
+const Countdown = ({ time, localTime, reload }) => {
     if(time.length === 1){
       return <div></div>
     }
@@ -17,11 +17,15 @@ const Countdown = ({time, localTime}) => {
     let martaSec = 0
     let secDif = martaSec-localSec
     let minDif = martaMin-localMin
-    let hourDif = martaHour-localHour
+    let hourDif = martaHour - localHour
+    if (martaHour === 1 && localHour === 12) {
+        martaHour += 12
+      }
       if(hourDif > 0){
         minDif = (martaMin + (60 * hourDif)) - localMin
       }
       if (secDif <= 0 && minDif <= 0) {
+        console.log(reload)
         return <h1 className="card-title">Boarding Now</h1>
       } else if(secDif < 0){
         secDif += 60

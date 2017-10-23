@@ -32,7 +32,6 @@ class MartaDashboard extends Component {
 
   componentWillMount() {
     this.martaDataGrabber = setInterval(() => { 
-        console.log(this.state.loading)
         if (this.state.loading <= 2) {
           getMartaData().then((jsonData) => {
             // console.log(jsonData);\
@@ -70,13 +69,10 @@ class MartaDashboard extends Component {
             }
           })
         }  
-      }, 1000)
-      
-    setInterval(() => {
       this.setState({
         localTime: new Date()
       })
-    }, 1000)  ;
+      }, 1000)
   }
     
 
@@ -92,8 +88,8 @@ class MartaDashboard extends Component {
     let martaOutput = this.state.martaData.map((datum) => {
       // debugger;
         return (
-          <div>
-            <Card station={datum.DESTINATION} time={datum.NEXT_ARR} localTime={this.state.localTime} />
+          <div className="card-container">
+            <Card station={datum.DESTINATION} time={datum.NEXT_ARR} localTime={this.state.localTime} reload={this._reload}/>
             <br />
           </div>
         )
@@ -105,6 +101,12 @@ class MartaDashboard extends Component {
         </div>
       </div>
     )
+  }
+
+  _reload = () => {
+    this.setState({
+      loading: 0
+    })
   }
 
 }

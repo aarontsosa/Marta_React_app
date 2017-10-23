@@ -5,7 +5,7 @@ import Destination from './Destination.js'
 const StationCard = (props) => {
     return (
         <div className="card">
-                <div className="card-block">
+                <div className="card-block card-contents">
                     <DirectionBound {...props}/>
                     <div> to </div>
                     <Destination {...props} />

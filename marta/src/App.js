@@ -26,7 +26,7 @@ class App extends Component {
       <div className="App">
         <br/>
         <BrowserRouter>
-          <div>
+          <div className="container-fluid">
             <Switch>
               <Route exact path="/" component={({match}) => (<Navigation navarray={martaDirection} match={match}/>)} />
               <Route exact path="/routes" component={({match}) => (<RoutesResults  match={match} />)} />
